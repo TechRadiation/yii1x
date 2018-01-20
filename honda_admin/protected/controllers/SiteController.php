@@ -13,8 +13,6 @@ class SiteController extends Controller
 				'class'=>'CCaptchaAction',
 				'backColor'=>0xFFFFFF,
 			),
-			// page action renders "static" pages stored under 'protected/views/site/pages'
-			// They can be accessed via: index.php?r=site/page&view=FileName
 			'page'=>array(
 				'class'=>'CViewAction',
 			),
@@ -23,13 +21,44 @@ class SiteController extends Controller
 
 	/**
 	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$model=new Certificates;
+		$status = array();
+
+		if(isset($_POST['Certificates']))
+		{
+			$model->attributes=$_POST['Certificates'];
+			$model->template_file = $file=CUploadedFile::getInstance($model,'template_file');
+			if($model->validate()) {
+				$path = Yii::app()->basePath . '/../images/certificates';
+		        if (!is_dir($path)) {
+		            mkdir($path);
+		        }
+	            $ext = $file->getExtensionName();
+	            $template_file =  uniqid() . '.' . $ext;
+	            $model->template_file = $template_file;
+				
+	            if($model->save(false))
+	            {	
+	                $file->saveAs($path.'/'.$template_file);
+	            }
+			}
+		}
+		$certificates=Certificates::model()->findAll();
+
+		$this->render('index',array(
+			'model' => $model,
+			'certificates' => $certificates
+			)
+		);
+	}
+
+	public function actionConfigure($id)
+	{
+		$certificate=Certificates::model()->findByPk($id);
+		$this->render('configure',array('certificate' => $certificate));
 	}
 
 	/**
