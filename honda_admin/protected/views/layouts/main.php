@@ -14,6 +14,25 @@
 	<!-- Custom styles for this template-->
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/sb-admin.css" rel="stylesheet">
 
+  <!-- Bootstrap core JavaScript-->
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/jquery/jquery.min.js"></script>
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Page level plugin JavaScript-->
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/datatables/jquery.dataTables.js"></script>
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/datatables/dataTables.bootstrap4.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin.min.js"></script>
+  <!-- Custom scripts for this page-->
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin-datatables.min.js"></script>
+
+  <style type="text/css">
+    .errorMessage {
+      color:red;
+    }
+  </style>
+
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>	
@@ -21,7 +40,7 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+    <a class="navbar-brand" href="/"><?php echo CHtml::encode(Yii::app()->name); ?></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -87,20 +106,6 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/chart.js/Chart.min.js"></script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin-datatables.min.js"></script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin-charts.min.js"></script>
 <script>
     $(document).ready(function(){
         // Add minus icon for collapse element which is open by default
