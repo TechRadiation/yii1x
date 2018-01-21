@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 20, 2018 at 03:00 AM
+-- Generation Time: Jan 21, 2018 at 09:47 PM
 -- Server version: 5.7.19-0ubuntu0.16.04.1
 -- PHP Version: 7.1.13-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -38,6 +38,16 @@ CREATE TABLE `certificates` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `certificates`
+--
+
+INSERT INTO `certificates` (`id`, `name`, `description`, `template_file`, `active`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(14, 'tdsd', 'tesdf', '5a64559b16155.jpg', '1', NULL, NULL, '2018-01-21 00:37:14', '2018-01-21 14:25:55', NULL),
+(15, 'tesdfd', 'tesdf', '5a6396c14a0d3.jpg', '1', NULL, NULL, '2018-01-21 00:51:37', '2018-01-21 00:51:37', NULL),
+(16, 'Testdd', 'dfsdf', '5a6420c96f7dc.jpg', '1', NULL, NULL, '2018-01-21 10:40:33', '2018-01-21 13:09:54', '2018-01-21 13:01:09'),
+(17, 'pdf certificate', 'pdf pdf certificate', '5a64a8f6ef489', '1', NULL, NULL, '2018-01-21 14:33:31', '2018-01-21 20:21:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -78,8 +88,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `description`, `active`, `created_at`, `updated_at`) VALUES
 (1, 'admin', NULL, '1', '2016-12-12 06:23:11', '2016-12-12 06:23:11'),
-(2, 'sub_admin', NULL, '1', '2016-12-12 06:23:12', '2016-12-12 06:23:12'),
-(3, 'employee', NULL, '1', '2016-12-12 06:23:12', '2016-12-12 06:23:12');
+(2, 'trainer', NULL, '1', '2016-12-12 06:23:12', '2016-12-12 06:23:12'),
+(3, 'trainee', NULL, '1', '2016-12-12 06:23:12', '2016-12-12 06:23:12');
 
 -- --------------------------------------------------------
 
@@ -104,6 +114,13 @@ CREATE TABLE `trainings` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `trainings`
+--
+
+INSERT INTO `trainings` (`id`, `name`, `description`, `training_head`, `instructor_id`, `start_date`, `end_date`, `address`, `active`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Test training', 'test', 1, 4, '2018-01-01', '2018-01-31', NULL, '1', NULL, NULL, '2018-01-21 06:00:00', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -115,7 +132,7 @@ CREATE TABLE `training_batch` (
   `training_id` int(11) NOT NULL,
   `trainee_id` int(11) NOT NULL,
   `grade` int(11) DEFAULT NULL,
-  `certificate` int(11) DEFAULT NULL,
+  `certificate` varchar(100) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `active` enum('0','1') NOT NULL DEFAULT '1',
@@ -123,6 +140,13 @@ CREATE TABLE `training_batch` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `training_batch`
+--
+
+INSERT INTO `training_batch` (`id`, `training_id`, `trainee_id`, `grade`, `certificate`, `created_by`, `updated_by`, `active`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 5, NULL, NULL, NULL, NULL, '1', '2018-01-09 02:00:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -153,7 +177,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `gender`, `password`, `address`, `digital_sign`, `active`, `reset_token`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin User', 'admin@admin.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, NULL, '1', '4U6u3sAUrBwbOQj5yQHigredkPJ9jMRrx68QhkAT13kW0untAMCNQKAlmywF', 0, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL);
+(1, 'Admin User', 'admin@admin.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, 'sign1.png', '1', '4U6u3sAUrBwbOQj5yQHigredkPJ9jMRrx68QhkAT13kW0untAMCNQKAlmywF', 0, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL),
+(4, 'Trainer', 'trainer@gmail.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, 'sign2.png', '1', NULL, NULL, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL),
+(5, 'Trainee', 'trainee@gmail.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, NULL, '1', NULL, NULL, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL);
 
 -- --------------------------------------------------------
 
@@ -172,7 +198,9 @@ CREATE TABLE `user_has_roles` (
 --
 
 INSERT INTO `user_has_roles` (`id`, `role_id`, `user_id`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(15, 2, 4),
+(16, 3, 5);
 
 --
 -- Indexes for dumped tables
@@ -238,7 +266,7 @@ ALTER TABLE `user_has_roles`
 -- AUTO_INCREMENT for table `certificates`
 --
 ALTER TABLE `certificates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `grades`
 --
@@ -253,22 +281,22 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `trainings`
 --
 ALTER TABLE `trainings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `training_batch`
 --
 ALTER TABLE `training_batch`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user_has_roles`
 --
 ALTER TABLE `user_has_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
