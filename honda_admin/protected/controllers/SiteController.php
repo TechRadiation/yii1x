@@ -34,6 +34,11 @@ class SiteController extends Controller
 
 		if($id){
 			$model=Certificates::model()->findByPk($id);
+
+			$status = array(
+    		'code' => 'warning',
+    		'message' => 'Edit certificate and change the template file!'
+    		);
 		}else
 			$model=new Certificates;
 
