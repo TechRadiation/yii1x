@@ -25,11 +25,17 @@ class SiteController extends Controller
 	public function actionIndex($id=null)
 	{
 		$status = array();
+		if(isset($_GET['status']) && $_GET['status'] == 'deleted') {
+			$status = array(
+    		'code' => 'success',
+    		'message' => 'Certificate deleted Successfully!'
+    		);
+		}
+
 		if($id){
 			$model=Certificates::model()->findByPk($id);
 		}else
 			$model=new Certificates;
-		$status = array();
 
 		if(isset($_POST['Certificates']))
 		{
@@ -66,7 +72,7 @@ class SiteController extends Controller
 	            }
 			}
 		}
-		$certificates=Certificates::model()->findAll();
+		$certificates=Certificates::model()->findAll('deleted_at is NULL');
 
 		$this->render('index',array(
 			'model' => $model,
@@ -79,7 +85,17 @@ class SiteController extends Controller
 	public function actionConfigure($id)
 	{
 		$certificate=Certificates::model()->findByPk($id);
-		$this->render('configure',array('certificate' => $certificate));
+		$status = array();
+		$this->render('configure',array('certificate' => $certificate,'status' => $status));
+	}
+
+	public function actionDelete($id)
+	{
+		$certificate=Certificates::model()->findByPk($id);
+		$certificate->deleted_at = date('Y-m-d H:m:i');
+		$certificate->save();
+		
+		$this->redirect(array('site/index', 'status'=> 'deleted'));
 	}
 
 	/**
