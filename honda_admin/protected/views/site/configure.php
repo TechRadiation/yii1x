@@ -16,7 +16,9 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
          <ul>
             <!-- <li>Double click to change the text value and press enter to update</li> -->
-            <li>Drag and drop the text field to fix the position of text</li>
+            <li>Drag the Marker Value to place it on its position</li>
+            <li>Double click on placed marker value to remove</li>
+            <li>Click submit to export in PDF</li>
          </ul>
      </div>
 
@@ -117,6 +119,8 @@
             padding: 20,
             align: 'center'
          });
+         markers[key].default_x = x;
+         markers[key].default_y = y;
          
          y = y + 50;
          marker.on("dragstart", function() {
@@ -132,10 +136,13 @@
             $('#jsonData').val(JSON.stringify(markers));
         });
 
-        // marker.on("dblclick dbltap", function() {
-        //     this.destroy();
-        //     layer.draw();
-        // });
+        marker.on("dblclick dbltap", function() {
+            this.position({
+               x: markers[key].default_x,
+               y: markers[key].default_y
+            });
+            layer.draw();
+        });
 
         marker.on("mouseover", function() {
             document.body.style.cursor = "pointer";
@@ -146,43 +153,6 @@
 
         layer.add(label);
         layer.add(marker);
-
-      //   marker.on('dblclick', () => {
-      //       // create textarea over canvas with absolute position
-
-      //       // first we need to find its positon
-      //       var textPosition = marker.getAbsolutePosition();
-      //       var stageBox = stage.getContainer().getBoundingClientRect();
-
-      //       var areaPosition = {
-      //           x: textPosition.x + stageBox.left,
-      //           y: textPosition.y + stageBox.top
-      //       };
-
-
-      //       // create textarea and style it
-      //       var textarea = document.createElement('textarea');
-      //       document.body.appendChild(textarea);
-
-      //       textarea.value = marker.text();
-      //       textarea.style.position = 'absolute';
-      //       textarea.style.top = areaPosition.y + 'px';
-      //       textarea.style.left = areaPosition.x + 'px';
-      //       textarea.style.width = marker.width();
-
-      //       textarea.focus();
-
-
-      //       textarea.addEventListener('keydown', function (e) {
-      //           // hide on enter
-      //           if (e.keyCode === 13) {
-      //               marker.text(textarea.value);
-      //               texts[key].name = textarea.value;
-      //               layer.draw();
-      //               document.body.removeChild(textarea);
-      //           }
-      //       });
-      //   })
 
       });
 

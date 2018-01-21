@@ -265,7 +265,7 @@ class SiteController extends Controller
             'x' => 0,
             'y' => 0
           ),
-         array(  'name' => 'IS 7900:2001',
+         array(  'name' => 'IS 7900:'.(rand(2000,3000)),
          	'label' => 'ISO no',
             'font'=>15,
             'fontFamily' => 'Calibri',
