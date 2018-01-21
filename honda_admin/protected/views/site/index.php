@@ -66,63 +66,79 @@
          <i class="fa fa-certificate"></i> Manage Certificate
       </div>
       <div class="card-body">
-         <div class="col-md-6 form-group bg-default">
-            <button class="btn btn-primary" type="submit" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <i class="fa fa-fw fa-plus"></i> Filters</button>
-         </div>
-         <div id="collapseOne" class="panel-collapse collapse col-md-12">
-            <div class="panel-body">
-               <div class="form-group row">
-                  <div class="col-md-4">
-                     <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Search By ID ">
-                  </div>
-                  <div class="col-md-4">
-                     <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Search By Certificate Name ">
-                  </div>
-                  <div class="col-md-4">
-                     <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Search By Certificate Name">
-                  </div>
-               </div>
-               <div class="form-group row">
-                  <div class="col-md-6 form-group row">
-                     <div class="col-md-6">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-window-close"></i>Clear Search</button>
+         <div class="row">
+            <div class="col-md-6 form-group bg-default">
+               <button class="btn btn-primary" type="submit" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <i class="fa fa-fw fa-plus"></i> Filters</button>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse col-md-12 <?= isset($status['code']) &&  $status['code'] == 'info' ? 'show' : ''  ?> ">
+               <div class="panel-body">
+                  <?php $form=$this->beginWidget('CActiveForm', array(
+               'id'=>'request-form',
+               'enableClientValidation'=>true,
+               'clientOptions'=>array(
+                'validateOnSubmit'=>true,
+               ),
+               )); 
+                ?>
+                  <div class="form-group row">
+                     <div class="col-md-4">
+                        <input class="form-control"  type="text"  placeholder="Search By ID " name="filters[id]" value="<?= $filters['id'] ?>">
                      </div>
-                     <div class="col-md-6">
-                        <button class="btn btn-primary" type="submit"> Search</button>
+                     <div class="col-md-4">
+                        <input class="form-control" placeholder="Search By Certificate Name " name="filters[name]" value="<?= $filters['name'] ?>">
+                     </div>
+                     <div class="col-md-4">
+                        <input class="form-control" placeholder="Search By Certificate Name" name="filters[description]" value="<?= $filters['description'] ?>">
                      </div>
                   </div>
+                  <div class="form-group">
+                     <button class="btn btn-primary pull-right" style="margin-left: 10px" type="submit"> Search</button>
+                     <a class="btn btn-danger pull-right" href="<?= $this->createUrl('site/index') ?>">Clear Filter</a>
+                    
+                  </div>
+                <?php $this->endWidget(); ?>
                </div>
             </div>
          </div>
-      <div class="table-responsive">
-         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-               <tr>
-                  <th>S.no</th>
-                  <th>ID</th>
-                  <th>Certificate Name</th>
-                  <th>Certificate Description</th>
-                  <th>Manage</th>
-               </tr>
-            </thead>
-            <tbody>
-               <?php $i=1;
-               foreach ($certificates as $key => $certificate) { ?>
-               <tr>
-                  <td><?= $i++ ?></td>
-                  <td><?= $certificate->id ?></td>
-                  <td><?= $certificate->name ?></td>
-                  <td><?= $certificate->description ?></td>
-                  <td>
-                     <a href="<?= $this->createUrl('site/index/'.$certificate->id) ?>" class="btn btn-success"><i class="fa fa-fw fa-edit"></i> </a>
-                     <a class="btn btn-success" href="<?= $this->createUrl('site/configure/'.$certificate->id) ?>"><i class="fa fa-fw fa-cogs"></i></a>
-                     <a href="<?= $this->createUrl('site/delete/'.$certificate->id) ?>" class="btn btn-success"><i class="fa fa-fw fa-trash"></i></a>
-                  </td>
-               </tr>
-               <?php } ?>
-            </tbody>
-         </table>
-      </div>
+         <div class="row">
+            <div class="table-responsive">
+               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                     <tr>
+                        <th>S.no</th>
+                        <th>ID</th>
+                        <th>Certificate Name</th>
+                        <th>Certificate Description</th>
+                        <th>Manage</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <?php $i=1;
+
+                     if(count($certificates) == 0) { ?>
+
+                     <td colspan="5">No record found</td>
+
+                     <?php 
+                     }
+                     foreach ($certificates as $key => $certificate) { ?>
+                     <tr>
+                        <td><?= $i++ ?></td>
+                        <td><?= $certificate->id ?></td>
+                        <td><?= $certificate->name ?></td>
+                        <td><?= $certificate->description ?></td>
+                        <td>
+                           <a href="<?= $this->createUrl('site/index/'.$certificate->id) ?>" class="btn btn-success"><i class="fa fa-fw fa-edit"></i> </a>
+                           <a class="btn btn-success" href="<?= $this->createUrl('site/configure/'.$certificate->id) ?>"><i class="fa fa-fw fa-cogs"></i></a>
+                           <a href="<?= $this->createUrl('site/delete/'.$certificate->id) ?>" class="btn btn-success"><i class="fa fa-fw fa-trash"></i></a>
+                        </td>
+                     </tr>
+                     <?php } ?>
+
+                  </tbody>
+               </table>
+            </div>
+         </div>
       </div>
    </div>
 </div>

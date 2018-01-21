@@ -72,12 +72,39 @@ class SiteController extends Controller
 	            }
 			}
 		}
-		$certificates=Certificates::model()->findAll('deleted_at is NULL');
+
+		$condition = 'deleted_at is NULL';
+		$filters = array(
+			'id' => '',
+			'name' => '',
+			'description' => ''
+		);
+		if(isset($_POST['filters'])) {
+			$criteria=new CDbCriteria;
+			$filters = $_POST['filters'];
+			
+			if($filters['id']) {
+				$condition .= ' and id = '.$filters['id'];
+			}
+			if($filters['name']) {
+				$condition .= " and name LIKE '%".$filters['name']."%'";
+			}
+			if($filters['description']) {
+				$condition .= " and name LIKE '%".$filters['description']."%'";
+			}
+			$status = array(
+	    		'code' => 'info',
+	    		'message' => 'Records for search data!'
+	    		);
+		}
+
+		$certificates=Certificates::model()->findAll($condition);
 
 		$this->render('index',array(
 			'model' => $model,
 			'certificates' => $certificates,
-			'status' => $status
+			'status' => $status,
+			'filters' => $filters
 			)
 		);
 	}
