@@ -126,10 +126,19 @@ class SiteController extends Controller
 			$this->redirect(array('site/index'));
 		}
 
+		$training = Yii::app()->db->createCommand()
+		    ->select('t.*, head.name as head, head.digital_sign as head_sign, trainer.name as trainer,trainer.digital_sign as trainer_sign')
+		    ->from('trainings t')
+		    ->join('users head', 'head.id=t.training_head')
+		    ->join('users trainer', 'trainer.id=t.instructor_id')
+		    ->queryRow();
+
+		$trainee = Users::model()->findByPk(5);
+
 		if(isset($_POST['markers'])) {
 			$markers = json_decode($_POST['markers'],true);
-			$path = Yii::app()->basePath . '/../images/certificates/'.$certificate->template_file.'.png';
-			$image = new Imagick($path);
+			$path = Yii::app()->basePath . '/../images';
+			$image = new Imagick($path.'/certificates/'.$certificate->template_file.'.png');
    			$height = $image->getimageheight();
 
    			$width = $_POST['imgWidthOriginal'];
@@ -143,12 +152,37 @@ class SiteController extends Controller
 				if($marker['x'] == 0 && $marker['y'] ==0) {
 					continue;
 				}
-				$draw = new ImagickDraw();
-			   $draw->setFillColor($marker['color']);
-			   // $draw->setFont("'".$marker['fontFamily']."'");
-			   $draw->setFontSize($marker['font']);
-			   // $draw->setTextUnderColor('#ff000088');
-			   $image->annotateImage($draw,($marker['x']*$widthRatio)+35,($marker['y']*$widthRatio)+35,0,$marker['name']);
+
+				$x = ($marker['x']*$widthRatio)+35;
+				$y = ($marker['y']*$widthRatio)+35;
+
+			   if($marker['name'] == 'head_sign' && $training['head_sign']) {
+			   		$sign = $path.'/'.$training['head_sign'];
+			   		$imgSign = new Imagick($sign);
+
+    				$imgSign->resizeImage(100,50,Imagick::FILTER_LANCZOS,1);;
+
+			   		$image->setImageVirtualPixelMethod(Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
+					$image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
+					$image->compositeImage($imgSign, Imagick::COMPOSITE_MATHEMATICS, $x, $y);
+
+			   } else if($marker['name'] == 'trainer_sign' && $training['trainer_sign']) {
+			   		$sign = $path.'/'.$training['trainer_sign'];
+			   		$imgSign = new Imagick($sign);
+
+    				$imgSign->resizeImage(100,50,Imagick::FILTER_LANCZOS,1);;
+
+			   		$image->setImageVirtualPixelMethod(Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
+					$image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
+					$image->compositeImage($imgSign, Imagick::COMPOSITE_MATHEMATICS, $x, $y);
+			   }else {
+				   $draw = new ImagickDraw();
+				   $draw->setFillColor($marker['color']);
+				   // $draw->setFont("'".$marker['fontFamily']."'");
+				   $draw->setFontSize($marker['font']);
+				   // $draw->setTextUnderColor('#ff000088');
+				   $image->annotateImage($draw,$x,$y,0,$marker['name']);
+				 }
 			}
 			$image->setImageFormat('pdf');
 			header('Content-type: application/pdf');
@@ -157,18 +191,11 @@ class SiteController extends Controller
 
 		}
 
-		$training = Yii::app()->db->createCommand()
-		    ->select('t.*, head.name as head, head.digital_sign as head_sign, trainer.name as trainer,trainer.digital_sign as trainer_sign')
-		    ->from('trainings t')
-		    ->join('users head', 'head.id=t.training_head')
-		    ->join('users trainer', 'trainer.id=t.instructor_id')
-		    ->queryRow();
-
-		$trainee = Users::model()->findByPk(5);
+		
 		$markers = array(
          array( 'name' => $trainee->name,
          	'label' => 'Trainee Name',
-            'font'=>20,
+            'font'=>15,
             'fontFamily' => 'Calibri',
             'color' => 'black',
             'x' => 0,
@@ -176,7 +203,7 @@ class SiteController extends Controller
          ),
          array(  'name' => $training['name'],
          	'label' => 'Training Name',
-            'font'=>25,
+            'font'=>15,
             'fontFamily' => 'Calibri',
             'color' => 'black',
             'x' => 0,
@@ -198,7 +225,7 @@ class SiteController extends Controller
             'x' => 0,
             'y' => 0
           ),
-         array(  'name' => ($training['head_sign'] ? $training['head_sign'] : $training['head']),
+         array(  'name' => 'head_sign',
          	'label' => 'Training head sign',
             'font'=>15,
             'fontFamily' => 'Calibri',
@@ -222,7 +249,7 @@ class SiteController extends Controller
             'x' => 0,
             'y' => 0
           ),
-         array(  'name' => 'Grade',
+         array(  'name' => 'A',
          	'label' => 'Grade',
             'font'=>15,
             'fontFamily' => 'Calibri',
@@ -230,7 +257,7 @@ class SiteController extends Controller
             'x' => 0,
             'y' => 0
           ),
-         array(  'name' => ($training['trainer_sign'] ? $training['trainer_sign'] : $training['trainer']),
+         array(  'name' => 'trainer_sign',
          	'label' => 'Instructor Sign',
             'font'=>15,
             'fontFamily' => 'Calibri',
@@ -238,7 +265,7 @@ class SiteController extends Controller
             'x' => 0,
             'y' => 0
           ),
-         array(  'name' => 'ISO no',
+         array(  'name' => 'IS 7900:2001',
          	'label' => 'ISO no',
             'font'=>15,
             'fontFamily' => 'Calibri',
