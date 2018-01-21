@@ -17,7 +17,6 @@ return array(
 		'application.models.*',
 		'application.components.*',
 	),
-
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		/*
@@ -38,6 +37,13 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 
+		// 'Imagick'=>array(
+  //         'class'=>'Imagick',
+  //           // GD or ImageMagick
+  //           'driver'=>'GD',
+  //           // ImageMagick setup path
+  //           'params'=>array('directory'=>'/opt/local/bin'),
+  //       ),
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(

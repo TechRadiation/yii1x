@@ -52,12 +52,16 @@ class SiteController extends Controller
 		            mkdir($path);
 		        }
 	            $ext = $file->getExtensionName();
-	            $template_file =  uniqid() . '.' . $ext;
+	            $template_file =  uniqid();
 	            $model->template_file = $template_file;
 				
 	            if($model->save(false))
 	            {	
-	                $file->saveAs($path.'/'.$template_file);
+	                $file->saveAs($path.'/'.$template_file.'.'.$ext);
+
+	                $image = new Imagick($path.'/'.$template_file.'.'.$ext);
+					$image->setImageFormat( "png" );
+					file_put_contents ($path.'/'.$template_file.".png", $image);
 	                if($id) {
 	                	$status = array(
 	                		'code' => 'success',
@@ -117,13 +121,121 @@ class SiteController extends Controller
 	public function actionConfigure($id)
 	{
 		$certificate=Certificates::model()->findByPk($id);
+
+		if(!$certificate) {
+			$this->redirect(array('site/index'));
+		}
+
+		if(isset($_POST['markers'])) {
+			$markers = $_POST['markers'];
+			// dd($markers);
+		}
+
+		$training = Yii::app()->db->createCommand()
+		    ->select('t.*, head.name as head, head.digital_sign as head_sign, trainer.name as trainer,trainer.digital_sign as trainer_sign')
+		    ->from('trainings t')
+		    ->join('users head', 'head.id=t.training_head')
+		    ->join('users trainer', 'trainer.id=t.instructor_id')
+		    ->queryRow();
+
+		$trainee = Users::model()->findByPk(5);
+		$markers = array(
+         array( 'name' => $trainee->name,
+         	'label' => 'Trainee Name',
+            'font'=>20,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+         ),
+         array(  'name' => $training['name'],
+         	'label' => 'Training Name',
+            'font'=>25,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+          ),
+         array(  'name' => $training['start_date'],
+         	'label' => 'start date',
+            'font'=>15,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+          ),
+         array(  'name' => $training['end_date'],
+         	'label' => 'End date',
+            'font'=>15,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+          ),
+         array(  'name' => ($training['head_sign'] ? $training['head_sign'] : $training['head']),
+         	'label' => 'Training head sign',
+            'font'=>15,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+          ),
+         array(  'name' => date('Y-m-d'),
+         	'label' => 'Certificate issue date',
+            'font'=>15,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+          ),
+         array(  'name' => $training['trainer'],
+         	'label' => 'Instructor Name',
+            'font'=>15,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+          ),
+         array(  'name' => 'Grade',
+         	'label' => 'Grade',
+            'font'=>15,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+          ),
+         array(  'name' => ($training['trainer_sign'] ? $training['trainer_sign'] : $training['trainer']),
+         	'label' => 'Instructor Sign',
+            'font'=>15,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+          ),
+         array(  'name' => 'ISO no',
+         	'label' => 'ISO no',
+            'font'=>15,
+            'fontFamily' => 'Calibri',
+            'color' => 'black',
+            'x' => 0,
+            'y' => 0
+         )
+      );
+
 		$status = array();
-		$this->render('configure',array('certificate' => $certificate,'status' => $status));
+		$this->render('configure',array('certificate' => $certificate,
+			'status' => $status,
+			'markers' => $markers
+			));
 	}
 
 	public function actionDelete($id)
 	{
 		$certificate=Certificates::model()->findByPk($id);
+		if(!$certificate) {
+			$this->redirect(array('site/index'));
+		}
+
 		$certificate->deleted_at = date('Y-m-d H:m:i');
 		$certificate->save();
 		
