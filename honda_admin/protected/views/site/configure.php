@@ -36,15 +36,14 @@
          <div class="card-body">
              
             <input type="hidden" name="markers" id="jsonData" value="">
+            <input type="hidden" name="imgWidth" id="imgWidth" value="">
+            <input type="hidden" name="imgHeight" id="imgHeight" value="">
+            <input type="hidden" name="imgWidthOriginal" id="imgWidthOriginal" value="">
             <div class="row image-panel">
                <div class="col-md-6">
                   
-                  <div class="row">
-                     <div class="col-md-12">
-                        <img src="<?= Yii::app()->request->baseUrl;  ?>/images/certificates/<?=$certificate->template_file ?>.png"  style="width: 100%" id="certificateImage">
-                                                
-                     </div>
-                  </div>
+                  <img src="<?= Yii::app()->request->baseUrl;  ?>/images/certificates/<?=$certificate->template_file ?>.png" id="certificateImage">
+                        
                </div>
                <div class="col-md-6">
                   <div class="card">
@@ -70,7 +69,14 @@
    function drawImage() {
       var width = $('.image-panel').width();
       var height = $('#certificateImage').height();
+      var imgWidthOriginal = $('#certificateImage').width();
+      $('#imgWidthOriginal').val(imgWidthOriginal);
+      $('#certificateImage').css('width','100%');
+      var imgWidth = $('#certificateImage').width();
+      $('#imgWidth').val(imgWidth);
+      $('#imgHeight').val(height);
       $('#divDetails').css('height',height);
+
     
       var stage = new Konva.Stage({
          container: 'konvaDiv',
@@ -98,14 +104,14 @@
             padding: 20,
             align: 'center'
          });
-         
+
          y = y+30;
          var marker = new Konva.Text({
             x: x,
             y: y,
             text: val.name,
             fontSize: val.font,
-            fontFamily: val.fontFamily,
+            // fontFamily: val.fontFamily,
             fill: val.color,
             draggable: true,
             padding: 20,

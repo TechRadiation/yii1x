@@ -127,8 +127,34 @@ class SiteController extends Controller
 		}
 
 		if(isset($_POST['markers'])) {
-			$markers = $_POST['markers'];
-			// dd($markers);
+			$markers = json_decode($_POST['markers'],true);
+			$path = Yii::app()->basePath . '/../images/certificates/'.$certificate->template_file.'.png';
+			$image = new Imagick($path);
+   			$height = $image->getimageheight();
+
+   			$width = $_POST['imgWidthOriginal'];
+   			$updatedWidth = $_POST['imgWidth'];
+   			$updatedHeight = $_POST['imgHeight'];
+
+   			$widthRatio = $width/$updatedWidth;
+   			$heightRatio = $height/$updatedHeight;
+   			//dd($widthRatio);
+			foreach ($markers as $key => $marker) {
+				if($marker['x'] == 0 && $marker['y'] ==0) {
+					continue;
+				}
+				$draw = new ImagickDraw();
+			   $draw->setFillColor($marker['color']);
+			   // $draw->setFont("'".$marker['fontFamily']."'");
+			   $draw->setFontSize($marker['font']);
+			   // $draw->setTextUnderColor('#ff000088');
+			   $image->annotateImage($draw,($marker['x']*$widthRatio)+35,($marker['y']*$widthRatio)+35,0,$marker['name']);
+			}
+			$image->setImageFormat('pdf');
+			header('Content-type: application/pdf');
+			header('Content-disposition: inline; filename=certificate.pdf');
+			echo $image;
+
 		}
 
 		$training = Yii::app()->db->createCommand()
