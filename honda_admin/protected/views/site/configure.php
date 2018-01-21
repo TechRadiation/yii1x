@@ -17,8 +17,10 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-md-12" id="konvaDiv">
-                        
+                     <div class="col-md-12">
+                        <img src="<?= Yii::app()->request->baseUrl;  ?>/images/certificates/<?=$certificate->template_file ?>"  style="width: 100%">
+                         <div id="konvaDiv" style="position: absolute;top: 0;width: 100%;">
+                         </div>                        
                      </div>
                   </div>
                </div>
@@ -31,77 +33,16 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 1</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
+                           <button class="btn btn-secondary" type="submit" draggable="true"> Name 1</button>
                         </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 2</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 3</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 4</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 5</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 6</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 7</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
+                        
                      </div>
                      <div class="col-md-6">
                         <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 1</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
+                           <button class="btn btn-secondary" type="submit" draggable="true"> Name 1</button>
+                          
                         </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 2</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 3</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 4</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 5</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 6</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
-                        <div class="col-md-12 form-group">
-                           <button class="btn btn-secondary" type="submit"> Name 7</button>
-                           <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
-                           <a class="btn btn-success" href="config-certificate.html"><i class="fa fa-fw fa-edit"></i></a>
-                        </div>
+                        
                      </div>
                   </div>
                </div>
@@ -112,17 +53,14 @@
 </div>
 <script src="https://cdn.rawgit.com/konvajs/konva/1.7.6/konva.min.js"></script>
 <script type="text/javascript">
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-
     function drawImage() {
         var imageObj = new Image();
          imageObj.src = '../images/certificates/<?=$certificate->template_file ?>';
 
         var stage = new Konva.Stage({
             container: 'konvaDiv',
-            width: width,
-            height: height
+            width: 500,
+            height: 700
         });
 
         var layer = new Konva.Layer();
