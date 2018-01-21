@@ -73,3 +73,55 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/favicon.ico
 ---
+2018/01/20 20:18:58 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /var/www/honda/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/honda/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/honda/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /var/www/honda/honda_admin/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2018/01/20 20:20:56 [error] [php] move_uploaded_file(/var/www/honda/honda_admin/protected/../images/certificates/5a63a4a8cf94b.jpg): failed to open stream: Permission denied (/var/www/honda/framework/web/CUploadedFile.php:201)
+Stack trace:
+#0 /var/www/honda/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#1 /var/www/honda/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/honda/framework/web/CController.php(286): SiteController->runAction()
+#3 /var/www/honda/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#4 /var/www/honda/framework/web/CWebApplication.php(282): SiteController->run()
+#5 /var/www/honda/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#6 /var/www/honda/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#7 /var/www/honda/honda_admin/index.php(17): CWebApplication->run()
+REQUEST_URI=/
+in /var/www/honda/honda_admin/protected/controllers/SiteController.php (45)
+in /var/www/honda/honda_admin/index.php (17)
+2018/01/20 20:23:08 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "images". in /var/www/honda/framework/web/CController.php:486
+Stack trace:
+#0 /var/www/honda/framework/web/CController.php(270): CController->missingAction('images')
+#1 /var/www/honda/framework/web/CWebApplication.php(282): CController->run('images')
+#2 /var/www/honda/framework/web/CWebApplication.php(141): CWebApplication->runController('site/images/cer...')
+#3 /var/www/honda/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/honda/honda_admin/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/images/certificates/5a63a52487175.jpg
+HTTP_REFERER=http://honda.invzo.com/index.php/site/configure/2
+---
+2018/01/21 04:54:37 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /var/www/honda/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/honda/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/honda/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /var/www/honda/honda_admin/index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+HTTP_REFERER=http://honda.invzo.com/
+---
+2018/01/21 04:54:49 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "images". in /var/www/honda/framework/web/CController.php:486
+Stack trace:
+#0 /var/www/honda/framework/web/CController.php(270): CController->missingAction('images')
+#1 /var/www/honda/framework/web/CWebApplication.php(282): CController->run('images')
+#2 /var/www/honda/framework/web/CWebApplication.php(141): CWebApplication->runController('site/images/cer...')
+#3 /var/www/honda/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/honda/honda_admin/index.php(17): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/images/certificates/5a63a4a8cf94b.jpg
+HTTP_REFERER=http://honda.invzo.com/index.php/site/configure/1
+---
