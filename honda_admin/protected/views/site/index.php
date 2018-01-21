@@ -1,5 +1,13 @@
 <div class="content-wrapper">
 <div class="container-fluid">
+   <?php if($status) { ?>
+
+      <div class="alert alert-<?= $status['code'] ?> alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+         <?= $status['message'] ?>
+     </div>
+
+   <?php }  ?>
    <!-- Icon Cards-->
    <div class="card mb-3">
       <div class="card-header">
@@ -106,9 +114,9 @@
                   <td><?= $certificate->name ?></td>
                   <td><?= $certificate->description ?></td>
                   <td>
-                     <a href="#" class="btn btn-success"><i class="fa fa-fw fa-eye"></i> </a>
-                     <a class="btn btn-success" href="<?= $this->createUrl('site/configure/'.$certificate->id) ?>"><i class="fa fa-fw fa-edit"></i></a>
-                     <a href="#" class="btn btn-success"><i class="fa fa-fw fa-trash"></i></a>
+                     <a href="<?= $this->createUrl('site/index/'.$certificate->id) ?>" class="btn btn-success"><i class="fa fa-fw fa-edit"></i> </a>
+                     <a class="btn btn-success" href="<?= $this->createUrl('site/configure/'.$certificate->id) ?>"><i class="fa fa-fw fa-cogs"></i></a>
+                     <a href="<?= $this->createUrl('site/delete/'.$certificate->id) ?>" class="btn btn-success"><i class="fa fa-fw fa-trash"></i></a>
                   </td>
                </tr>
                <?php } ?>
