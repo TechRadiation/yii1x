@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 21, 2018 at 09:47 PM
--- Server version: 5.7.19-0ubuntu0.16.04.1
--- PHP Version: 7.1.13-1+ubuntu16.04.1+deb.sury.org+1
+-- Generation Time: Jan 22, 2018 at 10:53 AM
+-- Server version: 5.7.20-0ubuntu0.16.04.1
+-- PHP Version: 7.0.22-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `invzo_honda`
+-- Database: `honda`
 --
 
 -- --------------------------------------------------------
@@ -44,10 +44,13 @@ CREATE TABLE `certificates` (
 --
 
 INSERT INTO `certificates` (`id`, `name`, `description`, `template_file`, `active`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(14, 'tdsd', 'tesdf', '5a64559b16155.jpg', '1', NULL, NULL, '2018-01-21 00:37:14', '2018-01-21 14:25:55', NULL),
-(15, 'tesdfd', 'tesdf', '5a6396c14a0d3.jpg', '1', NULL, NULL, '2018-01-21 00:51:37', '2018-01-21 00:51:37', NULL),
-(16, 'Testdd', 'dfsdf', '5a6420c96f7dc.jpg', '1', NULL, NULL, '2018-01-21 10:40:33', '2018-01-21 13:09:54', '2018-01-21 13:01:09'),
-(17, 'pdf certificate', 'pdf pdf certificate', '5a64a8f6ef489', '1', NULL, NULL, '2018-01-21 14:33:31', '2018-01-21 20:21:34', NULL);
+(1, 'new Certificate', 'Test', '5a643c81b3cd6.jpg', '1', NULL, NULL, '2018-01-20 20:20:56', '2018-01-21 11:11:46', '2018-01-21 11:01:11'),
+(2, 'tdsd', 'dfsd', '5a63a52487175.jpg', '1', NULL, NULL, '2018-01-20 20:23:00', '2018-01-21 11:11:49', '2018-01-21 11:01:11'),
+(3, 'Test', 'pdf certificate', '5a64764272fc8', '1', NULL, NULL, '2018-01-21 11:12:14', '2018-01-22 08:22:58', '2018-01-22 08:01:22'),
+(4, 'Test', NULL, '5a64762ba18e3', '1', NULL, NULL, '2018-01-21 11:14:51', '2018-01-21 11:15:04', '2018-01-21 11:01:15'),
+(5, 'Sample Certificate', 'For Testing', '5a6483ae8f560', '1', NULL, NULL, '2018-01-21 12:12:30', '2018-01-21 12:12:30', NULL),
+(6, 'Honda Certificate', 'Sample Certificate of Honda', '5a65a0e46aa3e', '1', NULL, NULL, '2018-01-22 08:29:24', '2018-01-22 08:29:24', NULL),
+(7, 'Honda Certificate 123', 'test certificate', '5a65bda36d752', '1', NULL, NULL, '2018-01-22 10:26:40', '2018-01-22 10:32:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -88,8 +91,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `description`, `active`, `created_at`, `updated_at`) VALUES
 (1, 'admin', NULL, '1', '2016-12-12 06:23:11', '2016-12-12 06:23:11'),
-(2, 'trainer', NULL, '1', '2016-12-12 06:23:12', '2016-12-12 06:23:12'),
-(3, 'trainee', NULL, '1', '2016-12-12 06:23:12', '2016-12-12 06:23:12');
+(2, 'Trainer', NULL, '1', '2016-12-12 06:23:12', '2016-12-12 06:23:12'),
+(3, 'Trainee', NULL, '1', '2016-12-12 06:23:12', '2016-12-12 06:23:12');
 
 -- --------------------------------------------------------
 
@@ -178,8 +181,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `gender`, `password`, `address`, `digital_sign`, `active`, `reset_token`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Admin User', 'admin@admin.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, 'sign1.png', '1', '4U6u3sAUrBwbOQj5yQHigredkPJ9jMRrx68QhkAT13kW0untAMCNQKAlmywF', 0, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL),
-(4, 'Trainer', 'trainer@gmail.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, 'sign2.png', '1', NULL, NULL, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL),
-(5, 'Trainee', 'trainee@gmail.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, NULL, '1', NULL, NULL, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL);
+(4, 'Test Trainer', 'trainer@gmail.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, 'sign2.png', '1', NULL, NULL, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL),
+(5, 'User Trainee', 'trainee@gmail.com', '9898989898', NULL, '$2y$10$CulcSzaDUWVF/lrSwmLdKO.YRHRhAcSOVlzReAcQXbPstvXiPieny', NULL, NULL, '1', NULL, NULL, NULL, '2015-09-18 18:42:54.000000', '2017-05-29 15:56:46.000000', NULL);
 
 -- --------------------------------------------------------
 
@@ -266,7 +269,7 @@ ALTER TABLE `user_has_roles`
 -- AUTO_INCREMENT for table `certificates`
 --
 ALTER TABLE `certificates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `grades`
 --
