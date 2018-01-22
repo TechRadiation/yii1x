@@ -97,7 +97,7 @@ class SiteController extends Controller
                 $condition .= " and name LIKE '%" . $filters['name'] . "%'";
             }
             if ($filters['description']) {
-                $condition .= " and name LIKE '%" . $filters['description'] . "%'";
+                $condition .= " and description LIKE '%" . $filters['description'] . "%'";
             }
             $status = array(
                 'code' => 'info',
