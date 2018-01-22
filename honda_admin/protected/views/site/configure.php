@@ -153,7 +153,7 @@
      }
      
    function confirmSubmit($id) {
-      var response = confirm("Have you placed all markers on position, confirm to generate the certificate!");
+      var response = confirm("Have you placed all markers on position? confirm to generate the certificate.");
       return response;
    }
 

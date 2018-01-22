@@ -137,8 +137,8 @@
 <!-- /.container-fluid-->
 <script type="text/javascript">
     function deleteCertificate($id) {
-        
-        var response = confirm("Do you want to delete this certificate!");
+
+        var response = confirm("Do you want to delete this certificate?");
         if (response == true) {
             window.location.href = "<?= $this->createUrl('site/delete/') ?>/"+$id;
         } else {
