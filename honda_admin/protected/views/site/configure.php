@@ -133,6 +133,9 @@
                 x: markers[key].default_x,
                 y: markers[key].default_y
              });
+             markers[key].x =  markers[key].default_x;
+             markers[key].y = markers[key].default_y;
+             $('#jsonData').val(JSON.stringify(markers));
              layer.draw();
          });
     
